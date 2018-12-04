@@ -18,6 +18,7 @@ with open(csvpath, 'r') as csvfile:
     change_alt = []
     previous = 0
 
+    #Revenue list will be a list of integers
     for row in reader:
         dates.append(row[0])
         money.append(row[1])
@@ -26,12 +27,12 @@ with open(csvpath, 'r') as csvfile:
         previous = row[1]
         change.append(diff)
 
+#Loop through revenue indices and compare
 zipped = zip(dates, change)
 zipped_lst = list(zipped)
 change.remove(change[0])
 zipped_lst.remove(zipped_lst[0])
 
-   
 #Find total months
 total_months = len(dates)
 total = sum(map(int, money))
@@ -43,6 +44,7 @@ decrease = min(change)
 month_dec = 0
 month_inc = 0
 
+##To find greatest inc and dec
 for row in zipped_lst:
     if row[1] == increase:
         month_inc = row[0]
@@ -60,7 +62,6 @@ with open('PyBank.txt', 'w') as text_file:
     print(f'Greatest Decrease in Profits: {month_dec} ({decrease})', file=text_file)
 
 #opens the output file in r mode and prints to terminal
-
 txtpath = os.path.join('PyBank.txt')
 with open(txtpath, 'r') as readfile:
     print(readfile.read())
